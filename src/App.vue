@@ -1,32 +1,56 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
-  </div>
+  <v-app>
+    <v-app-bar app>
+      <v-img
+        class="mr-5"
+        src="./assets/robinhoodicon.jpg"
+        max-height="40"
+        max-width="40"
+        contain
+        @click="reloadSite"
+        style="cursor: pointer;"
+      ></v-img>
+
+      <div max-width="40" class="ml-5">
+        <v-text-field
+          clearable
+          flat
+          solo-inverted
+          hide-details
+          label="Search"
+          dense
+        ></v-text-field>
+      </div>
+      <v-spacer></v-spacer>
+      <v-btn color="primary" class="ml-5">End Day</v-btn>
+      <v-tabs color="green" right>
+        <v-tab router to="/Home">Stocks</v-tab>
+        <v-tab router to="/">Profile</v-tab>
+        <v-tab router to="/Cash">Cash</v-tab>
+      </v-tabs>
+    </v-app-bar>
+
+    <v-content>
+       <router-view></router-view>
+    </v-content>
+  </v-app>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+export default {
+  name: "App",
 
-#nav {
-  padding: 30px;
-}
+  components: {},
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
+  methods: {
+    reloadSite() {
+      location.replace(location.origin );
+    },
+  },
 
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>
+  data: () => ({
+    //
+  }),
+  created() {},
+};
+</script>
