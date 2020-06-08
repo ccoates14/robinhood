@@ -22,10 +22,11 @@
         ></v-text-field>
       </div>
       <v-spacer></v-spacer>
-      <v-btn color="primary" class="ml-5">End Day</v-btn>
+      <v-btn color="primary" class="ml-5" @click="$store.dispatch('END_DAY')">End Day</v-btn>
       <v-tabs color="green" right>
-        <v-tab router to="/Home">Stocks</v-tab>
-        <v-tab router to="/">Profile</v-tab>
+         <v-tab router to="/">Home</v-tab>
+        <v-tab router to="/Stocks">Stocks</v-tab>
+        <v-tab router to="/Profile">Profile</v-tab>
         <v-tab router to="/Cash">Cash</v-tab>
       </v-tabs>
     </v-app-bar>
@@ -44,7 +45,7 @@ export default {
 
   methods: {
     reloadSite() {
-      location.replace(location.origin );
+      location.replace(location.origin);
     },
   },
 

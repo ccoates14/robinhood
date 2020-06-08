@@ -1,56 +1,66 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from "vue";
+import Vuex from "vuex";
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
     cash: 0,
-    stocks:[],
-    stockNames:[
-      'Coke',
-      'Pepsi',
-      'Home Depot',
-      'Alaska  Air',
-      'Red Robin',
-      'Tesla',
-      'SpaceX',
-      'Starbucks',
-      'Google',
-      'Apple',
-      'Shell',
-      'Best Buy',
-      'Target',
-      'Walmart',
-      'Fred Meyer',
-      'Costco',
-      'Random company'
+    stocks: {},
+    stockNames: [
+      "Coke",
+      "Pepsi",
+      "Home Depot",
+      "Alaska  Air",
+      "Red Robin",
+      "Tesla",
+      "SpaceX",
+      "Starbucks",
+      "Google",
+      "Apple",
+      "Shell",
+      "Best Buy",
+      "Target",
+      "Walmart",
+      "Fred Meyer",
+      "Costco",
+      "Random company",
     ],
-    usedStocksNames:[]
   },
-  getters:{
-    cash: state => state.cash,
-    stocks: state => state.stocks,
-    stockNames: state => state.stockNames,
-    usedStockNames: state => state.usedStockNames,
-    outOfStockNames: state => state.usedStockNames.length == state.stockNames.length,
-    isStockNameTaken: state => (name) => state.usedStockNames.includes(name),
-    getUnusedStockName: (_, getters) => {
-      if (getters.outOfStockNames){
-        return null;
-      }
-
-      var currentStockName = '';
-      while (getters.isStockNameTaken((currentStockName = getters.stockNames[Math.floor(Math.random() * getters.stockNames.length)])));
-
-      return currentStockName;
-    }
+  getters: {
+    cash: (state) => state.cash,
+    stocks: (state) => state.stocks,
+    stockNames: (state) => state.stockNames,
   },
   mutations: {
-    useStockName: (state, stockName) => state.usedStockNames.push(stockName)
+    changeCash: (state, cash) => (state.cash = cash),
+    endDay: (state) => {
+      state.stockNames.forEach((n) => {
+        if (state.stocks[n] == undefined) {
+          const initialStockValue = 1000;
+          state.stocks[n] =
+            {
+              values: [initialStockValue],
+              stockName: n
+            };
+          }
+    
+        const maxRange = 1000;
+        const increaseStock =
+          Math.floor(Math.random() * maxRange) + 1 > maxRange / 2;
+        const stockTick = 
+          (Math.floor(Math.random() * maxRange) + 1) * (increaseStock ? 1 : -1);
+        const nextStockValue = state.stocks[n].values.length > 0 ? state.stocks[n].values[state.stocks[n].values.length - 1] + stockTick : stockTick;
+        state.stocks[n].values.push(nextStockValue);
+        
+
+      });
+    },
   },
   actions: {
+    'END_DAY' : (context) => {
+      context.commit('endDay');
+    }
   },
-  modules: {
-  }
-})
+  modules: {},
+});

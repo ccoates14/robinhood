@@ -2,6 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Cash from '../views/Cash.vue'
+import Stocks from '../views/Stocks'
+import Profile from '../views/Profile'
 
 Vue.use(VueRouter)
 
@@ -19,12 +21,12 @@ Vue.use(VueRouter)
   {
     path: '/Stocks',
     name: 'Stocks',
-    component: Cash
+    component: Stocks
   },
   {
     path: '/Profile',
     name: 'Profile',
-    component: Cash
+    component: Profile
   }
   
 ]

@@ -1,11 +1,25 @@
 <template>
-  <input
-    type="text"
-    :value="cash"
-    :style="inputClass"
-    class="large-number-input"
-    v-on:keyup="validate"
-  />
+  <v-container>
+    <v-layout>
+      <input
+        type="text"
+        :placeholder="cash"
+        :style="inputClass"
+        v-model="value"
+        class="large-number-input"
+        v-on:keyup="validate"
+ 
+      />
+      <v-btn
+        color="primary"
+        class="ml-5"
+        @click="submit"
+        min-width="200"
+        min-height="75"
+        >Submit</v-btn
+      >
+    </v-layout>
+  </v-container>
 </template>
 <script>
 export default {
@@ -27,16 +41,30 @@ export default {
     },
   },
 
+  data() {
+    return {
+      value: this.cash
+    }
+  },
+
   methods: {
     validate(n) {
       var newValue = "";
 
       for (let i = 0; i < n.srcElement.value.length; i++) {
-        newValue += isNaN(parseInt(n.srcElement.value[i])) ? '' : n.srcElement.value[i];
+        newValue += isNaN(parseInt(n.srcElement.value[i]))
+          ? ""
+          : n.srcElement.value[i];
       }
 
       n.srcElement.value = newValue;
     },
+
+    submit() {
+      if (!Number.isNaN(this.value)){
+        this.$emit('submit', parseInt(this.value));
+      }
+    }
   },
 };
 </script>
