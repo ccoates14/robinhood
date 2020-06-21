@@ -1,3 +1,5 @@
+A very simple robin hood clone just for practicing vuejs and vuex.
+
 # robinhood-clone
 
 ## Project setup
