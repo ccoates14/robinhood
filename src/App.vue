@@ -21,10 +21,12 @@
           dense
         ></v-text-field>
       </div>
-      <v-spacer></v-spacer>
-      <v-btn color="primary" class="ml-5" @click="$store.dispatch('END_DAY')">End Day</v-btn>
+      <div class="cash">Cash: {{$store.getters.cash}}</div>
+      <v-btn color="primary" @click="$store.dispatch('END_DAY')"
+        >End Day</v-btn
+      >
       <v-tabs color="green" right>
-         <v-tab router to="/">Home</v-tab>
+        <v-tab router to="/">Home</v-tab>
         <v-tab router to="/Stocks">Stocks</v-tab>
         <v-tab router to="/Profile">Profile</v-tab>
         <v-tab router to="/Cash">Cash</v-tab>
@@ -32,7 +34,7 @@
     </v-app-bar>
 
     <v-content>
-       <router-view></router-view>
+      <router-view></router-view>
     </v-content>
   </v-app>
 </template>
@@ -48,10 +50,16 @@ export default {
       location.replace(location.origin);
     },
   },
-
-  data: () => ({
-    //
-  }),
-  created() {},
+  created() {
+    this.$store.commit('initStockValues');
+  },
 };
 </script>
+<style scoped>
+.cash {
+  font-size: 18pt;
+  color: green;
+  width: 15rem;
+  margin-left: 3rem;
+}
+</style>

@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-layout col align-center justify-center>
-      <div >
+      <div>
         <stock
           v-for="name in $store.getters.stockNames"
           :key="name"
@@ -13,11 +13,17 @@
 </template>
 <script>
 import Stock from "../components/Stocks/Stock";
-//this view will generate a series of stocks
-//each stock will generate their own data and put it in the store
+import store from '../store';
 export default {
   components: {
-    Stock
+    Stock,
+  },
+  beforeRouteEnter(to, from, next) {  // eslint-disable-line
+    if (store.getters.signedIn){
+      next();
+    }else{
+      alert('Please sign in by filling out the form in');
+    }
   },
 };
 </script>
